@@ -1,0 +1,94 @@
+function roundrobin(p,a,b,n){
+        var seq=[]
+        var res_b=[];
+        var res_a=[];
+        for (var x = 0; x <b.length; x++) {
+                res_b[x] = b[x]; 
+                res_a[x] = a[x]; 
+            }    
+        var t=0;
+        var w=[];
+        var comp=[];
+        while(true){
+            var flag=true;
+            for(var i=0;i<p.length;i++){
+                if (res_a[i]<=t){
+                    if(res_a[i]<=n){
+                        if(res_b[i]>0){
+                            flag=false;
+                            if (res_b[i] > n) { 
+
+                                t = t + n; 
+                                res_b[i] = res_b[i] - n; 
+                                res_a[i] = res_a[i] + n; 
+                                seq.push(p[i]); 
+                            } 
+                            else { 
+                                 t = t + res_b[i];  
+            comp[i] = t - a[i];  
+                                w[i] = t - b[i] - a[i]; 
+                                res_b[i] = 0; 
+                                seq.push(p[i]);
+                            }
+                        }
+                    }
+                    else if (res_a[i] > n) { 
+                        for (var j = 0; j < p.length; j++) { 
+
+                            if (res_a[j] < res_a[i]) { 
+                                if (res_b[j] > 0) { 
+                                    flag = false; 
+                                    if (res_b[j] > n) { 
+                                        t = t + n; 
+                                        res_b[j] = res_b[j] - n; 
+                                        res_a[j] = res_a[j] + n; 
+                                        seq.push(p[j]); 
+                                    } 
+                                    else { 
+                                        t = t + res_b[j]; 
+                                        comp[j] = t - a[j]; 
+                                        w[j] = t - b[j] - a[j]; 
+                                        res_b[j] = 0; 
+                                        seq.push(p[j]); 
+                                    } 
+                                } 
+                            } 
+                        } 
+
+                        if (res_b[i] > 0) { 
+                            flag = false;  
+                            if (res_b[i] > n) { 
+                                t = t + n; 
+                                res_b[i] = res_b[i] - n; 
+                                res_a[i] = res_a[i] + n; 
+                                seq.push(p[i]); 
+                            } 
+                            else { 
+                                t = t + res_b[i]; 
+                                comp[i] = t - a[i]; 
+                                w[i] = t - b[i] - a[i]; 
+                                res_b[i] = 0; 
+                                seq.push(p[i]);
+                            } 
+                        } 
+                    } 
+                }
+                else if (res_a[i] > t) { 
+                    t++; 
+                    i--; 
+
+
+            }
+        }
+        if (flag) { 
+            break; 
+        } 
+
+        }
+        document.getElementById("demo1").innerHTML = seq;
+        document.getElementById("demo2").innerHTML = w;
+        document.getElementById("demo3").innerHTML = comp;
+    }
+
+
+    
